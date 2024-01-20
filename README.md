@@ -1,4 +1,5 @@
 # CuriousQuill
+A medium for users to express their thoughts and insights on diverse topics.
 
 ## Initial version has a following features
 - Login / Signup securely using jwt authentication
