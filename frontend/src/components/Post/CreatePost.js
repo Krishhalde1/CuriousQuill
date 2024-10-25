@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { authStatusChecker } from "../../actions/user";
 
+import {MenuItem, Select,Chip} from '@material-ui/core';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -44,6 +46,20 @@ const useStyles = makeStyles((theme) => ({
 
 const PostForm = ({ post }) => {
   const classes = useStyles();
+  const availableTags = ['Education', 'Technology', 'Spiritual', 'Fitness', 'Movies', 'Sports','Travel','Life experience'];
+  const [selectedTag, setSelectedTag] = useState('');  // Define selectedTag state
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setTags(typeof value === 'string' ? value.split(',') : value);
+  };
+
+  const handleDeleteTag = (tagToDelete) => {
+    setTags(tags.filter((tag) => tag !== tagToDelete));
+  };
+
   const history = useHistory();
   const {
     value: title,
@@ -64,17 +80,22 @@ const PostForm = ({ post }) => {
 
   const [tagsFieldBlur, setTagsFieldBlur] = useState(false);
 
-  const tagsChangeHandler = (e) => {
-    const tags = e.target.value;
-    const tagsArray = tags.split(",");
-    setTags(tagsArray);
-  };
+  // const tagsChangeHandler = (e) => {
+  //   setSelectedTag(e.target.value); // Update selectedTag
+  // };
 
-  const tagsFilter = () => {
-    const tagsFilter = tags.filter((tag) => tag !== "");
-    setTags(tagsFilter);
-    setTagsFieldBlur(true);
-  };
+  // const handleTagSelect = () => {
+  //   if (selectedTag && !tags.includes(selectedTag)) {
+  //     setTags([...tags, selectedTag]);
+  //     setSelectedTag('');
+  //   }
+  // };
+
+  // const tagsFilter = () => {
+  //   const tagsFilter = tags.filter((tag) => tag !== "");
+  //   setTags(tagsFilter);
+  //   setTagsFieldBlur(true);
+  // };
 
   const buttonDisable =
     titleHasError || descHasError || tags.length === 0 || images.length === 0;
@@ -188,16 +209,27 @@ const PostForm = ({ post }) => {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                color="primary"
+            <Select
+                multiple
+                value={tags}
+                onChange={handleChange}
+                renderValue={(selected) => (
+                  <div>
+                    {selected.map((value) => (
+                      <Chip key={value} label={value} />
+                    ))}
+                  </div>
+                )}
                 fullWidth
                 variant="outlined"
                 label="Tags"
-                value={tags}
-                placeholder="Add tags (comma-seperated)"
-                onBlur={tagsFilter}
-                onChange={tagsChangeHandler}
-              />
+              >
+                {availableTags.map((tag) => (
+                  <MenuItem key={tag} value={tag}>
+                    {tag}
+                  </MenuItem>
+                ))}
+              </Select>
               {tags.map((tag, index) => {
                 return (
                   <Button

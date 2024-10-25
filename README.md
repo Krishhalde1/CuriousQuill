@@ -1,12 +1,12 @@
 # CuriousQuill
-A medium for users to express their thoughts and insights on diverse topics.
+A platform for users to express their thoughts and insights on diverse topics.
 
 ## Initial version has a following features
 - Login / Signup securely using jwt authentication
-- Create Post, add multiple code snippets 
+- Create Post, add multiple posts 
 - Edit, delete your post 
 - View other posts
-- Search any post using either title, description, tags (keyword)
+- Filter any post through title, description or tags
 - Mobile downloadable (PWA)
 
 ## Technology stack

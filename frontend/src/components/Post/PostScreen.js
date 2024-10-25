@@ -172,7 +172,7 @@ const PostScreen = (props) => {
               }
             />
           </CardMedia>
-          <CardContent component="div" style={{ flex: 2, color: "white" }}>
+          <CardContent  component="div" style={{ flex: 2, color: "white" , width:'ma'}}>
             <Typography gutterBottom variant="h5" component="h2">
               {getPost && post.title}
             </Typography>
